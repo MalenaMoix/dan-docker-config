@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  dan-ms-usuarios:
+    container_name: dan-ms-usuarios
+    image: dan-ms-usuarios:0.0.2
+    ports:
+      - "9000:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:mysql://192.168.0.10:3306/jms_dan
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    networks:
+      - infrastructure_infra
+networks:
+  infrastructure_infra:
+    external: true

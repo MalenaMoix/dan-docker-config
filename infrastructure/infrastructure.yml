@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./infrastructure/data.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./infrastructure/data:/var/lib/mysql/data
+    ports:
+      - 6060:8080
+    networks:
+      - infrastructure
+      - microservices
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 6070:8080
+    networks:
+      - infrastructure
+networks:
+  infrastructure:
+    driver: bridge
+  microservices:
+    driver: bridge
