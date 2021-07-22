@@ -1,17 +1,71 @@
 version: '2'
-
 services:
   dan-ms-usuarios:
     container_name: dan-ms-usuarios
     image: dan-ms-usuarios:0.0.2
     ports:
-      - "9000:8080"
+      - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SERVER_PORT=8080
-      - SPRING_DATASOURCE_URL=jdbc:mysql://192.168.0.10:3306/jms_dan
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jms_dan?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_ARTEMIS_HOST=artemis
+      - SPRING_ARTEMIS_PORT=61616
+      - SPRING_ARTEMIS_USER=dan2021
+      - SPRING_ARTEMIS_PASSWORD=dan2021
+    networks:
+      - infrastructure_infra
+  dan-ms-pedidos:
+    container_name: dan-ms-pedidos
+    image: dan-ms-pedidos:0.0.1-SNAPSHOT
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jms_dan?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_ARTEMIS_HOST=artemis
+      - SPRING_ARTEMIS_PORT=61616
+      - SPRING_ARTEMIS_USER=dan2021
+      - SPRING_ARTEMIS_PASSWORD=dan2021
+    networks:
+      - infrastructure_infra
+  dan-ms-productos:
+    container_name: dan-ms-productos
+    image: dan-ms-productos:0.0.1-SNAPSHOT
+    ports:
+      - "8082:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jms_dan?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_ARTEMIS_HOST=artemis
+      - SPRING_ARTEMIS_PORT=61616
+      - SPRING_ARTEMIS_USER=dan2021
+      - SPRING_ARTEMIS_PASSWORD=dan2021
+    networks:
+      - infrastructure_infra
+  dan-ms-pagos:
+    container_name: dan-ms-pagos
+    image: dan-ms-pagos:0.0.1-SNAPSHOT
+    ports:
+      - "8083:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jms_dan?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_ARTEMIS_HOST=artemis
+      - SPRING_ARTEMIS_PORT=61616
+      - SPRING_ARTEMIS_USER=dan2021
+      - SPRING_ARTEMIS_PASSWORD=dan2021
     networks:
       - infrastructure_infra
 networks:

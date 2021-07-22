@@ -6,23 +6,31 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./infrastructure/data.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./infrastructure/data:/var/lib/mysql/data
+      - ./data.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - 6060:8080
+      - 6000:8080
     networks:
-      - infrastructure
-      - microservices
+      - infra
+      - app
   adminer:
     container_name: adminer
     image: adminer
     restart: always
     ports:
-      - 6070:8080
+      - 6001:8081
     networks:
-      - infrastructure
+      - infra
+  artemis:
+    container_name: artemis
+    build:
+      context: ..\artemis
+      dockerfile: Dockerfile
+    ports:
+      - 6002:8082
+    networks:
+      - app
 networks:
-  infrastructure:
+  infra:
     driver: bridge
-  microservices:
+  app:
     driver: bridge

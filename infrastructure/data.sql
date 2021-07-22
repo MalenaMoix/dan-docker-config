@@ -1,0 +1,3 @@
+CREATE SCHEMA jms_dan;
+
+GRANT ALL PRIVILEGES ON `jms_dan`.* TO 'root' @'%' WITH GRANT OPTION;
