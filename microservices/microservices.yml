@@ -15,6 +15,7 @@ services:
       - SPRING_ARTEMIS_PORT=61616
       - SPRING_ARTEMIS_USER=dan2021
       - SPRING_ARTEMIS_PASSWORD=dan2021
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
       - infrastructure_infra
   dan-ms-pedidos:
@@ -32,6 +33,7 @@ services:
       - SPRING_ARTEMIS_PORT=61616
       - SPRING_ARTEMIS_USER=dan2021
       - SPRING_ARTEMIS_PASSWORD=dan2021
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
       - infrastructure_infra
   dan-ms-productos:
@@ -49,6 +51,7 @@ services:
       - SPRING_ARTEMIS_PORT=61616
       - SPRING_ARTEMIS_USER=dan2021
       - SPRING_ARTEMIS_PASSWORD=dan2021
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
       - infrastructure_infra
   dan-ms-pagos:
@@ -66,6 +69,28 @@ services:
       - SPRING_ARTEMIS_PORT=61616
       - SPRING_ARTEMIS_USER=dan2021
       - SPRING_ARTEMIS_PASSWORD=dan2021
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
+    networks:
+      - infrastructure_infra
+  dan-gateway:
+    container_name: dan-gateway
+    image: dan-gateway:0.0.1-SNAPSHOT
+    ports:
+      - "7000:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
+    networks:
+      - infrastructure_infra
+  dan-eureka-server:
+    container_name: dan-eureka-server
+    image: dan-eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
     networks:
       - infrastructure_infra
 networks:
