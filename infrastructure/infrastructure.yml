@@ -29,6 +29,13 @@ services:
       - 6002:8082
     networks:
       - app
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    networks:
+      - app
 networks:
   infra:
     driver: bridge
