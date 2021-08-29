@@ -29,13 +29,23 @@ services:
       - 6002:8082
     networks:
       - app
-  grafana:
-    container_name: grafana
-    image: grafana/grafana
+  keycloak:
+    container_name: auth
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_USER: root
+      DB_SCHEMA: keycloak
+      DB_PASSWORD: root
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
     ports:
-      - 3000:3000
+      - 6080:8080
+    depends_on:
+      - mysql
     networks:
-      - app
+      - infra
 networks:
   infra:
     driver: bridge

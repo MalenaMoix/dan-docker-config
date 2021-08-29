@@ -1,3 +1,4 @@
 CREATE SCHEMA jms_dan;
+CREATE SCHEMA keycloak;
 
 GRANT ALL PRIVILEGES ON `jms_dan`.* TO 'root' @'%' WITH GRANT OPTION;
