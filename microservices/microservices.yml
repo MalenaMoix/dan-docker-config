@@ -72,6 +72,24 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
       - infrastructure_infra
+  dan-ms-logistica:
+    container_name: dan-ms-logistica
+    image: dan-ms-logistica:0.0.1-SNAPSHOT
+    ports:
+      - "8084:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jms_dan?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_ARTEMIS_HOST=artemis
+      - SPRING_ARTEMIS_PORT=61616
+      - SPRING_ARTEMIS_USER=dan2021
+      - SPRING_ARTEMIS_PASSWORD=dan2021
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
+    networks:
+      - infrastructure_infra
   dan-gateway:
     container_name: dan-gateway
     image: dan-gateway:0.0.1-SNAPSHOT
@@ -91,6 +109,27 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SERVER_PORT=8080
+    networks:
+      - infrastructure_infra
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    command: '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - infrastructure_infra
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - 6591:3000
+    links:
+      - prometheus:prometheus
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
     networks:
       - infrastructure_infra
 networks:
