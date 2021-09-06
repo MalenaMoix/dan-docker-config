@@ -46,6 +46,28 @@ services:
       - mysql
     networks:
       - infra
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    volumes:
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ../prometheus/data:/prometheus
+    command: '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - app
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - 6591:3000
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - app
 networks:
   infra:
     driver: bridge
