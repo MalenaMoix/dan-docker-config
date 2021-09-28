@@ -1,0 +1,33 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+rule_files:
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['127.0.0.1:9090']
+  - job_name: 'dan-ms-usuarios'
+    metrics_path: '/api-users/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['dan-ms-usuarios:8080']
+  - job_name: 'dan-ms-pedidos'
+    metrics_path: '/api-orders/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'dan-ms-pedidos:8080' ]
+  - job_name: 'dan-ms-productos'
+    metrics_path: '/api-products/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'dan-ms-productos:8080' ]
+  - job_name: 'dan-ms-pagos'
+    metrics_path: '/api-payments/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'dan-ms-pagos:8080' ]
+  - job_name: 'dan-ms-logistica'
+    metrics_path: '/api-shipments/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'dan-ms-logistica:8080' ]

@@ -17,7 +17,7 @@ services:
       - SPRING_ARTEMIS_PASSWORD=dan2021
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
-      - infrastructure_infra
+      - infrastructure_app
   dan-ms-pedidos:
     container_name: dan-ms-pedidos
     image: dan-ms-pedidos:0.0.1-SNAPSHOT
@@ -35,7 +35,7 @@ services:
       - SPRING_ARTEMIS_PASSWORD=dan2021
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
-      - infrastructure_infra
+      - infrastructure_app
   dan-ms-productos:
     container_name: dan-ms-productos
     image: dan-ms-productos:0.0.1-SNAPSHOT
@@ -53,7 +53,7 @@ services:
       - SPRING_ARTEMIS_PASSWORD=dan2021
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
-      - infrastructure_infra
+      - infrastructure_app
   dan-ms-pagos:
     container_name: dan-ms-pagos
     image: dan-ms-pagos:0.0.1-SNAPSHOT
@@ -71,7 +71,7 @@ services:
       - SPRING_ARTEMIS_PASSWORD=dan2021
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
-      - infrastructure_infra
+      - infrastructure_app
   dan-ms-logistica:
     container_name: dan-ms-logistica
     image: dan-ms-logistica:0.0.1-SNAPSHOT
@@ -89,7 +89,7 @@ services:
       - SPRING_ARTEMIS_PASSWORD=dan2021
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
-      - infrastructure_infra
+      - infrastructure_app
   dan-gateway:
     container_name: dan-gateway
     image: dan-gateway:0.0.1-SNAPSHOT
@@ -100,7 +100,7 @@ services:
       - SERVER_PORT=8080
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://dan-eureka-server:8080/eureka/
     networks:
-      - infrastructure_infra
+      - infrastructure_app
   dan-eureka-server:
     container_name: dan-eureka-server
     image: dan-eureka-server:0.0.1-SNAPSHOT
@@ -110,28 +110,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - SERVER_PORT=8080
     networks:
-      - infrastructure_infra
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus:latest
-    ports:
-      - 9090:9090
-    command: '--config.file=/etc/prometheus/prometheus.yml'
-    networks:
-      - infrastructure_infra
-  grafana:
-    container_name: grafana
-    image: grafana/grafana:latest
-    ports:
-      - 6591:3000
-    links:
-      - prometheus:prometheus
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    depends_on:
-      - prometheus
-    networks:
-      - infrastructure_infra
+      - infrastructure_app
 networks:
-  infrastructure_infra:
+  infrastructure_app:
     external: true
