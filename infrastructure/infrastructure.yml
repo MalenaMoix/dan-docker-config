@@ -18,7 +18,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 6001:8081
+      - 6001:8080
     networks:
       - infra
   artemis:
